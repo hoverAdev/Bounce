@@ -1,4 +1,4 @@
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <iostream>
 #include <math.h>
 
@@ -12,6 +12,10 @@ public:
   double Angle;
   double X;
   double Y;
+
+  Point(double direction) {
+      Angle = direction;
+  }
 
   double TriangleWave(double input, double multiplier) {
     double output =
@@ -36,7 +40,7 @@ int main(int argc, char *argv[]) {
 
   // Initialize window, otherwise return an error.
   SDL_Window *window =
-      SDL_CreateWindow("CMake Project 1", SDL_WINDOWPOS_UNDEFINED,
+      SDL_CreateWindow("Bounce", SDL_WINDOWPOS_UNDEFINED,
                        SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN);
 
   if (!window) {
@@ -52,11 +56,9 @@ int main(int argc, char *argv[]) {
                 << "SDL_Error: " << SDL_GetError() << std::endl;
       return 1;
     } else {
-      // Set some initial variables
-      int directionkey = 0b0000;
-      int facing = 0b0001;
-      bool quit = false;
-      bool debug = false;
+        bool quit = false;
+        Point point(90);
+        int t = 0;
 
       while (!quit) {
         SDL_Event e;
@@ -70,12 +72,17 @@ int main(int argc, char *argv[]) {
             break;
           }
         }
-
-				
+          
+        double rad = point.TriangleWave(point.Angle, t);
+        Location loc = point.GetLocation(rad, point.Angle);
 				
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
+        SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
+        SDL_RenderDrawPoint(renderer, (loc.x*100) + 320, (loc.y*100) + 240);
+        SDL_RenderDrawPoint(renderer, t, 240);
         SDL_RenderPresent(renderer);
+        t++;
       }
       SDL_DestroyRenderer(renderer);
     }
