@@ -1,0 +1,6 @@
+{
+  "name": "ambiencetown-bounce",
+  "dependencies": [
+    "sdl2"
+  ]
+}
