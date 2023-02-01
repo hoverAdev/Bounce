@@ -43,7 +43,7 @@ void RenderFivePixel(SDL_Renderer* renderer, int x, int y) {
 }
 
 
-// Main()
+// Main function
 int main(int argc, char *argv[]) {
   // Initilize SDL, otherwise return an error.
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
 
         for (int i = 0; i < NUM_POINTS; i++) {
             points[i] = DegreeToRadians((i + 1) * ((360 * (1 + std::trunc(NUM_POINTS / 360))) / NUM_POINTS)+90);
-            std::cout << (RadiansToDegree(points[i]) - 90) << std::endl;
+            // std::cout << (RadiansToDegree(points[i]) - 90) << std::endl;
         }
         double t = 0;
 
